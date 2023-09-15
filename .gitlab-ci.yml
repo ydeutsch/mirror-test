@@ -1,0 +1,13 @@
+stages:
+  - schedules
+
+variables:
+  DOCKER_IO: docker.io
+
+trigger_mirror:
+  stage: schedules
+  image: ${DOCKER_IO}/curlimages/curl:latest
+  script:
+    - 'curl -X POST --header "JOB-TOKEN: ${CI_JOB_TOKEN}" "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/mirror/pull"'
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
