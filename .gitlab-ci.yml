@@ -11,6 +11,6 @@ trigger_mirror:
     CURL_CA_BUNDLE: $CI_PROJECT_DIR/ca-certificates.crt
   script:
     - 'cat /etc/ssl/certs/ca-certificates.crt ${CI_SERVER_TLS_CA_FILE} > ${CURL_CA_BUNDLE}'
-    - 'curl -X POST --oauth2-bearer "${CI_JOB_TOKEN}" "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/mirror/pull"'
+    - 'curl -X POST --oauth2-bearer "${MIRROR_TOKEN}" "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/mirror/pull"'
   rules:
     - if: $CI_PIPELINE_SOURCE == "schedule" && $MIRROR_TOKEN != ""
